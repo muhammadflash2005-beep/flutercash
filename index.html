@@ -66,7 +66,7 @@
     .section-head { display:flex;align-items:center;justify-content:space-between;margin:25px 0 13px; }
     .section-head h2 { margin:0;font:800 16px Manrope,sans-serif;letter-spacing:-.35px; }
     .text-btn { background:none;border:0;color:#c08cff;font-size:12px;font-weight:700;padding:5px 0; }
-    .actions { display:grid;grid-template-columns:repeat(4,1fr);gap:9px; }
+    .actions { display:grid;grid-template-columns:repeat(2,1fr);gap:9px; }
     .action { min-width:0;padding:13px 4px 11px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.025));color:var(--text);display:flex;flex-direction:column;align-items:center;gap:9px;transition:.2s; }
     .action:hover { transform:translateY(-3px);border-color:rgba(186,107,255,.4);background:rgba(152,95,255,.12); }
     .action-icon { width:39px;height:39px;border-radius:14px;display:grid;place-items:center;background:rgba(154,104,255,.16);color:#c9a7ff; }
@@ -100,7 +100,7 @@
     .tx-amount { text-align:right;font-size:12px;font-weight:800;white-space:nowrap; }
     .tx-amount.plus { color:var(--green); }
     .tx-amount small { display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:4px; }
-    .bottom-nav { position:fixed;z-index:20;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);padding:10px 13px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(12,14,33,.93);backdrop-filter:blur(22px);border-top:1px solid rgba(255,255,255,.075); }
+    .bottom-nav { position:fixed;z-index:20;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);padding:10px 13px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:5px;background:rgba(12,14,33,.93);backdrop-filter:blur(22px);border-top:1px solid rgba(255,255,255,.075); }
     @media (min-width:700px) { .bottom-nav { bottom:22px;border-radius:0 0 31px 31px;width:478px; } }
     .nav-item { border:0;background:none;color:#777b9c;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;font-size:9px;font-weight:700;transition:.2s; }
     .nav-item svg { width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
@@ -238,13 +238,11 @@
     <div class="section-head"><h2>Quick actions</h2><span class="muted" style="font-size:10px">Make a move</span></div>
     <div class="actions">
       
-      <button class="action" onclick="openMoney('Withdraw')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><span>Withdraw</span></button>
+      
       
       <button class="action" onclick="showScreen('support')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13v4h4v-6H4M20 13v4h-4v-6h4M16 20h-4"/></svg></span><span>Support</span></button>
     </div>
     <div class="bonus-card"><div class="bonus-icon">🎯</div><div class="bonus-copy"><strong>Earn virtual credits</strong><p>Complete simple tasks and collect demo rewards in your Fluter Cash wallet.</p></div><button onclick="showScreen('tasks')">View tasks</button></div>
-    <div class="section-head"><h2>Your savings goal</h2><button class="text-btn" onclick="toast('Savings goal details are coming soon.')">View goal</button></div>
-    <div class="savings-card"><div class="savings-top"><strong>New laptop fund 💻</strong><span>68% done</span></div><div class="progress"><i></i></div><div class="savings-meta"><span>₦170,000 saved</span><span>₦250,000 target</span></div></div>
     <div class="section-head"><h2>Recent activity</h2><button class="text-btn" onclick="showScreen('transactions')">See all</button></div>
     <div class="transaction-list" id="recentTransactions"></div>
     <p class="footer-note">fluter cash · Demo preview · No real money moves here</p>
@@ -375,9 +373,6 @@
   function setFilter(filter,btn){currentFilter=filter;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderTransactions();}
   function renderTasks(){const done=new Set(completedTasks);document.getElementById('taskList').innerHTML=taskDefinitions.map(t=>{const isDone=done.has(t.id);return '<div class="transaction"><div class="tx-icon bonus">✦</div><div class="tx-info"><strong>'+t.title+'</strong><small>'+t.description+'</small><small style="color:#c89aff;font-weight:800;margin-top:6px">+'+fmt(t.reward)+' virtual credits</small></div><button class="secondary-btn" style="width:auto;padding:9px 11px" '+(isDone?'disabled':'')+' onclick="completeTask(\''+t.id+'\')">'+(isDone?'Completed':'Complete')+'</button></div>';}).join('');updateBalance();}
   function completeTask(id){const task=taskDefinitions.find(t=>t.id===id);if(!task||completedTasks.includes(id))return;completedTasks.push(id);walletBalance+=task.reward;localStorage.setItem('fluterVirtualBalance',String(walletBalance));localStorage.setItem('fluterCompletedTasks',JSON.stringify(completedTasks));txData.unshift({title:task.title,sub:'Just now · Virtual task reward',amount:task.reward,type:'bonus'});updateBalance();renderTasks();renderRecent();if(document.getElementById('transactions').classList.contains('active'))renderTransactions();toast('Task complete! '+fmt(task.reward)+' virtual credits added.');}
-  function openMoney(kind){const backdrop=document.getElementById('modalBackdrop'),content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><div class="eyebrow">FLUTER CASH · DEMO</div><h3>${kind}</h3><p>${kind==='Add money'?'Choose an amount to add to your demo wallet.':kind==='Withdraw'?'Preview a withdrawal from your demo wallet.':'Move money toward your savings goal.'} No real funds will be moved.</p><form onsubmit="event.preventDefault();completeMoney('${kind}')"><div class="field"><label for="moneyAmount">Amount (NGN)</label><input class="amount-input" id="moneyAmount" inputmode="decimal" type="number" min="100" step="50" placeholder="₦ 0.00" required></div><div class="field"><label for="moneyNote">Note (optional)</label><input id="moneyNote" placeholder="What’s it for?"></div><button class="primary-btn" type="submit">Continue</button></form><button class="secondary-btn" style="margin-top:9px" onclick="closeModal()">Cancel</button>`;backdrop.classList.add('show');}
-  function completeMoney(kind){const amount=Number(document.getElementById('moneyAmount').value);if(!amount||amount<100){toast('Enter an amount of at least ₦100.');return;}closeModal();const note=document.getElementById('moneyNote')?.value;const type=kind==='Withdraw'?'out':kind==='Save money'?'out':'in';txData.unshift({title:kind+(note?' · '+note:''),sub:'Just now · Demo transaction',amount,type,icon:txIcon(type)});renderRecent();if(document.getElementById('transactions').classList.contains('active'))renderTransactions();showSuccess(kind,amount);}
-  function showSuccess(kind,amount){const backdrop=document.getElementById('modalBackdrop'),content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><div class="success-mark">✓</div><h3 style="text-align:center">${kind} preview created</h3><p style="text-align:center">${fmt(amount)} has been added to your demo activity. This did not move real money.</p><button class="primary-btn" onclick="closeModal()">Done</button>`;backdrop.classList.add('show');}
   function closeModal(){document.getElementById('modalBackdrop').classList.remove('show');}
   function backdropClose(e){if(e.target.id==='modalBackdrop')closeModal();}
   function editProfile(){const content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><h3>Edit profile</h3><p>Update the display details used in this demo.</p><form onsubmit="event.preventDefault();saveProfile()"><div class="field"><label for="editName">Full name</label><input id="editName" value="${escapeAttr(profile.name)}" required></div><div class="field"><label for="editEmail">Email address</label><input id="editEmail" type="email" value="${escapeAttr(profile.email)}" required></div><button class="primary-btn" type="submit">Save changes</button></form><button class="secondary-btn" style="margin-top:9px" onclick="closeModal()">Cancel</button>`;document.getElementById('modalBackdrop').classList.add('show');}

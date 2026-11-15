@@ -202,11 +202,11 @@
     <form onsubmit="event.preventDefault(); signIn();">
       <div class="field"><label for="loginEmail">Email address</label><input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" required></div>
       <div class="field"><label for="loginPassword">Password</label><div class="input-wrap"><input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="toggle-pass" type="button" onclick="togglePassword('loginPassword',this)">SHOW</button></div></div>
-      <div style="display:flex;justify-content:flex-end;margin:-3px 0 18px"><button type="button" class="text-btn" onclick="toast('Password reset flow can be connected to your auth provider.')">Forgot password?</button></div>
+      <div style="display:flex;justify-content:flex-end;margin:-3px 0 18px"><button type="button" class="text-btn" onclick="window.fluterAuth?.forgotPassword()">Forgot password?</button></div>
       <button class="primary-btn" type="submit">Sign in <span style="font-size:16px;margin-left:5px">→</span></button>
     </form>
     <div class="divider-or">OR</div>
-    <button class="secondary-btn social-btn" onclick="toast('Google sign-in is a demo action until authentication is connected.')"><strong style="font-size:15px">G</strong> Continue with Google</button>
+    <button class="secondary-btn social-btn" onclick="window.fluterAuth?.googleSignIn()"><strong style="font-size:15px">G</strong> Continue with Google</button>
     <p class="auth-switch">New to fluter cash? <button onclick="showScreen('signup')">Sign up</button></p>
     <p class="footer-note">By continuing, you agree to our Terms and Privacy Policy.</p>
   </section>
@@ -223,7 +223,7 @@
       <label style="display:flex;align-items:flex-start;gap:8px;color:#9699b6;font-size:10px;line-height:1.5;margin:15px 0 18px"><input type="checkbox" required style="accent-color:#b46bff;margin-top:1px"> I agree to the Terms of Service and Privacy Policy.</label>
       <button class="primary-btn" type="submit">Create my account <span style="font-size:16px;margin-left:5px">→</span></button>
     </form>
-    <p class="auth-switch">Already have an account? <button onclick="showScreen('signin')">Sign in</button></p>
+    <div class="divider-or">OR</div><button class="secondary-btn social-btn" onclick="window.fluterAuth?.googleSignIn()"><strong style="font-size:15px">G</strong> Sign up with Google</button><p class="auth-switch">Already have an account? <button onclick="showScreen('signin')">Sign in</button></p>
   </section>
 
   <!-- Dashboard -->
@@ -267,7 +267,7 @@
     <div class="menu-group"><button class="menu-row" onclick="editProfile()"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span>Personal information</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Your identity verification status will appear here.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Identity verification</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Security settings can be connected to your authentication provider.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Login & security</span><span class="chevron">›</span></button></div>
     <div class="section-head"><h2>More</h2></div>
     <div class="menu-group"><button class="menu-row" onclick="showScreen('support')"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.4 1.8c-1.1 1-1.9 1.2-1.9 2.7M12 17h.01"/></svg></span><span>Help & support</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Terms and privacy links can be added before launch.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l4 4v14H7zM17 3v5h4M10 13h8M10 17h8"/></svg></span><span>Legal & privacy</span><span class="chevron">›</span></button><button class="menu-row" onclick="signOut()"><span class="menu-icon" style="color:#ff8ba8;background:rgba(255,114,150,.1)"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M21 4v16"/></svg></span><span style="color:#ff9ab3">Sign out</span><span class="chevron">›</span></button></div>
-    <p class="footer-note">fluter cash · Version 1.0.0 · Demo preview</p>
+    <div class="menu-group"><button class="menu-row" onclick="window.fluterAuth?.forgotPassword()"><span class="menu-icon">🔐</span><span>Change password</span><span class="chevron">›</span></button></div><p class="footer-note">fluter cash · Secure account</p>
   </section>
 
   <!-- Support -->
@@ -318,10 +318,10 @@
   }
   function toast(message) { const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700); }
   function togglePassword(id,btn) { const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE'; }
-  function signIn() { const email=document.getElementById('loginEmail').value.trim();profile.email=email;const name=email.split('@')[0].replace(/[._-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());if(name)profile.name=name;syncProfile();showScreen('dashboard');toast('Welcome back! This is a demo session.'); }
-  function signUp() { const name=document.getElementById('signupName').value.trim();const email=document.getElementById('signupEmail').value.trim();profile={name,email};syncProfile();showScreen('dashboard');toast('Your demo account is ready. Welcome to fluter cash!'); }
+  async function signIn() { return window.fluterAuth?.signIn(); }
+  async function signUp() { return window.fluterAuth?.signUp(); }
   function syncProfile(){document.getElementById('dashName').textContent=profile.name.split(' ')[0];document.getElementById('dashAvatar').textContent=initials(profile.name);document.getElementById('profileAvatar').textContent=initials(profile.name);document.getElementById('profileName').textContent=profile.name;document.getElementById('profileEmail').textContent=profile.email;}
-  function signOut(){showScreen('signin');toast('You have signed out of the demo session.');}
+  async function signOut(){return window.fluterAuth?.signOut();}
   function toggleBalance(){balanceVisible=!balanceVisible;document.getElementById('balanceValue').textContent=balanceVisible?'₦184,500.00':'••••••••';document.getElementById('eyeText').textContent=balanceVisible?'Hide':'Show';}
   function txIcon(type){return type==='out'?'↗':type==='bonus'?'✦':'↓';}
   function transactionHTML(t){const plus=t.type!=='out';return `<div class="transaction"><div class="tx-icon ${t.type==='out'?'out':t.type==='bonus'?'bonus':''}">${txIcon(t.type)}</div><div class="tx-info"><strong>${t.title}</strong><small>${t.sub}</small></div><div class="tx-amount ${plus?'plus':''}">${plus?'+':'−'}${fmt(t.amount)}<small>${t.type==='bonus'?'Reward':t.type==='in'?'Received':'Sent'}</small></div></div>`;}
@@ -342,5 +342,6 @@
   renderRecent();
   setTimeout(()=>{if(document.getElementById('splash')){document.getElementById('splash').style.display='none';showScreen('signin');}},1500);
 </script>
+  <script type="module" src="/src/auth.js"></script>
 </body>
 </html>

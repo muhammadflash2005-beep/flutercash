@@ -24,8 +24,7 @@ function busy(button, text) {
 function applyUser(user) {
   if (!user) return;
   const name = user.name || (user.email || '').split('@')[0] || 'Member';
-  window.profile = { ...(window.profile || {}), name, email: user.email || '' };
-  if (typeof window.syncProfile === 'function') window.syncProfile();
+  if (typeof window.setFluterProfile === 'function') window.setFluterProfile({name, email: user.email || ''});
   if ($('profileEmail')) $('profileEmail').textContent = user.email || '';
   if ($('profileName')) $('profileName').textContent = name;
 }

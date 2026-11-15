@@ -232,22 +232,31 @@
     <div class="greeting"><div><div class="eyebrow">SUNDAY, NOVEMBER 15</div><h1>Hey, <span id="dashName">Jin</span> <span style="font-size:20px">✦</span></h1><p>Ready to make today count?</p></div><button class="avatar" onclick="showScreen('profile')" id="dashAvatar">JW</button></div>
     <div class="balance-card">
       <div class="balance-head"><span>Total available balance</span><button onclick="toggleBalance()"><svg id="eyeIcon" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span id="eyeText">Hide</span></button></div>
-      <div class="balance-value" id="balanceValue">₦184,500.00</div>
-      <div class="balance-foot"><div><span>↗ This month</span><strong>+₦12,400.00</strong></div><span class="mini-chip">✦ Rewards member</span></div>
+      <div class="balance-value" id="balanceValue">₦0.00</div>
+      <div class="balance-foot"><div><span>Virtual credits earned</span><strong id="earnedValue">₦0.00</strong></div><span class="mini-chip">✦ Demo rewards</span></div>
     </div>
     <div class="section-head"><h2>Quick actions</h2><span class="muted" style="font-size:10px">Make a move</span></div>
     <div class="actions">
-      <button class="action" onclick="openMoney('Add money')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span>Add money</span></button>
+      
       <button class="action" onclick="openMoney('Withdraw')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><span>Withdraw</span></button>
-      <button class="action" onclick="openMoney('Save money')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 8h16v12H4zM7 8V5h10v3M8 13h.01M16 13h.01M9 17h6"/></svg></span><span>Save</span></button>
+      
       <button class="action" onclick="showScreen('support')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13v4h4v-6H4M20 13v4h-4v-6h4M16 20h-4"/></svg></span><span>Support</span></button>
     </div>
-    <div class="bonus-card"><div class="bonus-icon">🎁</div><div class="bonus-copy"><strong>Your welcome bonus is waiting</strong><p>Explore rewards and unlock more perks as you save.</p></div><button onclick="claimBonus()" id="bonusBtn">Claim</button></div>
+    <div class="bonus-card"><div class="bonus-icon">🎯</div><div class="bonus-copy"><strong>Earn virtual credits</strong><p>Complete simple tasks and collect demo rewards in your Fluter Cash wallet.</p></div><button onclick="showScreen('tasks')">View tasks</button></div>
     <div class="section-head"><h2>Your savings goal</h2><button class="text-btn" onclick="toast('Savings goal details are coming soon.')">View goal</button></div>
     <div class="savings-card"><div class="savings-top"><strong>New laptop fund 💻</strong><span>68% done</span></div><div class="progress"><i></i></div><div class="savings-meta"><span>₦170,000 saved</span><span>₦250,000 target</span></div></div>
     <div class="section-head"><h2>Recent activity</h2><button class="text-btn" onclick="showScreen('transactions')">See all</button></div>
     <div class="transaction-list" id="recentTransactions"></div>
     <p class="footer-note">fluter cash · Demo preview · No real money moves here</p>
+  </section>
+
+  <!-- Tasks -->
+  <section id="tasks" class="screen">
+    <header class="topbar"><div><div class="eyebrow">EARN REWARDS</div><h1 class="page-title">Tasks</h1></div><button class="icon-btn" onclick="showScreen('dashboard')" aria-label="Back to home"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button></header>
+    <div class="balance-card"><div class="balance-head"><span>Your virtual credits</span><span class="mini-chip">DEMO ONLY</span></div><div class="balance-value" id="tasksBalance">₦0.00</div><div class="balance-foot"><span>Earn by completing tasks</span><strong>Not real cash</strong></div></div>
+    <div class="section-head"><h2>Available tasks</h2><span class="muted" style="font-size:10px">Complete to earn</span></div>
+    <div id="taskList" class="transaction-list"></div>
+    <p class="footer-note">Virtual credits are simulated in this demo. They have no cash value and cannot be withdrawn or transferred.</p>
   </section>
 
   <!-- Transactions -->
@@ -276,7 +285,7 @@
     <div class="support-card"><div style="font-size:23px;margin-bottom:11px">🏦</div><h3>Where should payouts go?</h3><p>Choose your bank and enter the account number belonging to you. Check the details carefully before saving.</p></div>
     <div class="section-head" style="margin-top:22px"><h2>Payout account</h2></div>
     <form id="payoutForm" onsubmit="event.preventDefault();savePayoutAccount();">
-      <div class="field"><label for="payoutBank">Select bank</label><select id="payoutBank" required style="width:100%;border:1px solid rgba(255,255,255,.1);background:#171a37;color:#eee;border-radius:14px;padding:14px;font-size:12px;outline:none"><option value="">Choose your bank</option><option>Access Bank</option><option>Citibank Nigeria</option><option>Ecobank Nigeria</option><option>Fidelity Bank</option><option>First Bank of Nigeria</option><option>First City Monument Bank (FCMB)</option><option>Globus Bank</option><option>Guaranty Trust Bank (GTBank)</option><option>Keystone Bank</option><option>Lotus Bank</option><option>Moniepoint Microfinance Bank</option><option>Opay</option><option>Palmpay</option><option>Polaris Bank</option><option>PremiumTrust Bank</option><option>Stanbic IBTC Bank</option><option>Standard Chartered Bank</option><option>Sterling Bank</option><option>TAJBank</option><option> sebab</option><option>Union Bank of Nigeria</option><option>United Bank for Africa (UBA)</option><option>Unity Bank</option><option>Wema Bank</option><option>Zenith Bank</option></select></div>
+      <div class="field"><label for="payoutBank">Select bank</label><select id="payoutBank" required style="width:100%;border:1px solid rgba(255,255,255,.1);background:#171a37;color:#eee;border-radius:14px;padding:14px;font-size:12px;outline:none"><option value="">Choose your bank</option><option>Access Bank</option><option>Citibank Nigeria</option><option>Ecobank Nigeria</option><option>Fidelity Bank</option><option>First Bank of Nigeria</option><option>First City Monument Bank (FCMB)</option><option>Globus Bank</option><option>Guaranty Trust Bank (GTBank)</option><option>Keystone Bank</option><option>Lotus Bank</option><option>Polaris Bank</option><option>PremiumTrust Bank</option><option>Stanbic IBTC Bank</option><option>Standard Chartered Bank</option><option>Sterling Bank</option><option>TAJBank</option><option> sebab</option><option>Union Bank of Nigeria</option><option>United Bank for Africa (UBA)</option><option>Unity Bank</option><option>Wema Bank</option><option>Zenith Bank</option></select></div>
       <div class="field"><label for="payoutAccountNumber">Account number</label><input id="payoutAccountNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="10" pattern="[0-9]{10}" placeholder="Enter your 10-digit account number" required></div>
       <button class="primary-btn" type="submit">Save payout account <span style="margin-left:5px">✓</span></button>
     </form>
@@ -300,6 +309,7 @@
 
   <nav id="bottomNav" class="bottom-nav hidden" aria-label="Main navigation">
     <button class="nav-item active" data-screen="dashboard" onclick="showScreen('dashboard')"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Home</span></button>
+    <button class="nav-item" data-screen="tasks" onclick="showScreen('tasks')"><svg viewBox="0 0 24 24"><path d="m9 12 2 2 4-4M5 4h14v16H5zM9 4V2h6v2"/></svg><span>Tasks</span></button>
     <button class="nav-item" data-screen="transactions" onclick="showScreen('transactions')"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M8 17v4"/></svg><span>Activity</span></button>
     <button class="nav-item" data-screen="support" onclick="showScreen('support')"><svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13v4h4v-6H4M20 13v4h-4v-6h4M16 20h-4"/></svg><span>Support</span></button>
     <button class="nav-item" data-screen="profile" onclick="showScreen('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profile</span></button>
@@ -308,16 +318,11 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="modalBackdrop" class="modal-backdrop" onclick="backdropClose(event)"><div class="modal" id="modalContent"><div class="modal-handle"></div></div></div>
 <script>
-  const txData = [
-    {title:'Savings deposit',sub:'Today · 10:42 AM',amount:25000,type:'in',icon:'↓'},
-    {title:'Online purchase',sub:'Yesterday · 4:18 PM',amount:8500,type:'out',icon:'↗'},
-    {title:'Welcome reward',sub:'Nov 12 · 9:05 AM',amount:500,type:'bonus',icon:'✦'},
-    {title:'Transfer received',sub:'Nov 11 · 2:31 PM',amount:12000,type:'in',icon:'↓'},
-    {title:'Airtime purchase',sub:'Nov 10 · 8:12 AM',amount:2000,type:'out',icon:'↗'},
-    {title:'Savings deposit',sub:'Nov 08 · 11:03 AM',amount:5000,type:'in',icon:'↓'},
-    {title:'Streak reward',sub:'Nov 05 · 7:30 AM',amount:250,type:'bonus',icon:'✦'}
-  ];
-  let balanceVisible = true, currentFilter = 'all', bonusClaimed = false, toastTimer;
+  const txData = [];
+  const taskDefinitions = [{id:'daily-checkin',title:'Daily check-in',description:'Visit your dashboard and check in for today.',reward:100},{id:'profile-review',title:'Review your profile',description:'Open your profile and review your account details.',reward:150},{id:'money-tip',title:'Learn a money tip',description:'Read a short savings tip in the app support section.',reward:50}];
+  let walletBalance = Math.max(0, Number(localStorage.getItem('fluterVirtualBalance') || 0));
+  let completedTasks = JSON.parse(localStorage.getItem('fluterCompletedTasks') || '[]');
+  let balanceVisible = true, currentFilter = 'all', toastTimer;
   let profile = {name:'Jin Woo',email:'jinwoo@example.com'};
   window.setFluterProfile = (user) => { profile = {name:user.name || (user.email || '').split('@')[0] || 'Member', email:user.email || ''}; syncProfile(); };
   const fmt = n => '₦' + Number(n).toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -330,6 +335,7 @@
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
     window.scrollTo({top:0,behavior:'smooth'});
     if(id==='transactions') renderTransactions();
+    if(id==='tasks') renderTasks();
     if(id==='settings') renderPayoutAccount();
   }
   function toast(message) { const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700); }
@@ -360,13 +366,15 @@
       document.getElementById('payoutAccountNumber').value=saved.number;
     } catch(e){}
   }
-  function toggleBalance(){balanceVisible=!balanceVisible;document.getElementById('balanceValue').textContent=balanceVisible?'₦184,500.00':'••••••••';document.getElementById('eyeText').textContent=balanceVisible?'Hide':'Show';}
+  function updateBalance(){const value=fmt(walletBalance);document.getElementById('balanceValue').textContent=balanceVisible?value:'••••••••';document.getElementById('tasksBalance').textContent=value;document.getElementById('earnedValue').textContent=value;}
+  function toggleBalance(){balanceVisible=!balanceVisible;updateBalance();document.getElementById('eyeText').textContent=balanceVisible?'Hide':'Show';}
   function txIcon(type){return type==='out'?'↗':type==='bonus'?'✦':'↓';}
   function transactionHTML(t){const plus=t.type!=='out';return `<div class="transaction"><div class="tx-icon ${t.type==='out'?'out':t.type==='bonus'?'bonus':''}">${txIcon(t.type)}</div><div class="tx-info"><strong>${t.title}</strong><small>${t.sub}</small></div><div class="tx-amount ${plus?'plus':''}">${plus?'+':'−'}${fmt(t.amount)}<small>${t.type==='bonus'?'Reward':t.type==='in'?'Received':'Sent'}</small></div></div>`;}
-  function renderRecent(){document.getElementById('recentTransactions').innerHTML=txData.slice(0,3).map(transactionHTML).join('');}
+  function renderRecent(){const el=document.getElementById('recentTransactions');el.innerHTML=txData.length?txData.slice(0,3).map(transactionHTML).join(''):'<div class="empty-state"><span>◎</span>No transactions yet. Complete a task to earn your first virtual credit.</div>';}
   function renderTransactions(){const filtered=txData.filter(t=>currentFilter==='all'||t.type===currentFilter);const el=document.getElementById('allTransactions');if(!filtered.length){el.innerHTML='<div class="empty-state"><span>◎</span>No activity in this category yet.</div>';return;}el.innerHTML='<div class="month-label">NOVEMBER 2026</div><div class="transaction-list">'+filtered.map(transactionHTML).join('')+'</div>';}
   function setFilter(filter,btn){currentFilter=filter;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderTransactions();}
-  function claimBonus(){if(bonusClaimed){toast('You’ve already claimed the demo welcome reward.');return;}bonusClaimed=true;txData.unshift({title:'Welcome reward claimed',sub:'Just now · Rewards',amount:500,type:'bonus',icon:'✦'});document.getElementById('bonusBtn').textContent='Claimed ✓';document.getElementById('bonusBtn').style.opacity='.65';renderRecent();toast('🎉 ₦500 demo reward added to your activity!');}
+  function renderTasks(){const done=new Set(completedTasks);document.getElementById('taskList').innerHTML=taskDefinitions.map(t=>{const isDone=done.has(t.id);return '<div class="transaction"><div class="tx-icon bonus">✦</div><div class="tx-info"><strong>'+t.title+'</strong><small>'+t.description+'</small><small style="color:#c89aff;font-weight:800;margin-top:6px">+'+fmt(t.reward)+' virtual credits</small></div><button class="secondary-btn" style="width:auto;padding:9px 11px" '+(isDone?'disabled':'')+' onclick="completeTask(\''+t.id+'\')">'+(isDone?'Completed':'Complete')+'</button></div>';}).join('');updateBalance();}
+  function completeTask(id){const task=taskDefinitions.find(t=>t.id===id);if(!task||completedTasks.includes(id))return;completedTasks.push(id);walletBalance+=task.reward;localStorage.setItem('fluterVirtualBalance',String(walletBalance));localStorage.setItem('fluterCompletedTasks',JSON.stringify(completedTasks));txData.unshift({title:task.title,sub:'Just now · Virtual task reward',amount:task.reward,type:'bonus'});updateBalance();renderTasks();renderRecent();if(document.getElementById('transactions').classList.contains('active'))renderTransactions();toast('Task complete! '+fmt(task.reward)+' virtual credits added.');}
   function openMoney(kind){const backdrop=document.getElementById('modalBackdrop'),content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><div class="eyebrow">FLUTER CASH · DEMO</div><h3>${kind}</h3><p>${kind==='Add money'?'Choose an amount to add to your demo wallet.':kind==='Withdraw'?'Preview a withdrawal from your demo wallet.':'Move money toward your savings goal.'} No real funds will be moved.</p><form onsubmit="event.preventDefault();completeMoney('${kind}')"><div class="field"><label for="moneyAmount">Amount (NGN)</label><input class="amount-input" id="moneyAmount" inputmode="decimal" type="number" min="100" step="50" placeholder="₦ 0.00" required></div><div class="field"><label for="moneyNote">Note (optional)</label><input id="moneyNote" placeholder="What’s it for?"></div><button class="primary-btn" type="submit">Continue</button></form><button class="secondary-btn" style="margin-top:9px" onclick="closeModal()">Cancel</button>`;backdrop.classList.add('show');}
   function completeMoney(kind){const amount=Number(document.getElementById('moneyAmount').value);if(!amount||amount<100){toast('Enter an amount of at least ₦100.');return;}closeModal();const note=document.getElementById('moneyNote')?.value;const type=kind==='Withdraw'?'out':kind==='Save money'?'out':'in';txData.unshift({title:kind+(note?' · '+note:''),sub:'Just now · Demo transaction',amount,type,icon:txIcon(type)});renderRecent();if(document.getElementById('transactions').classList.contains('active'))renderTransactions();showSuccess(kind,amount);}
   function showSuccess(kind,amount){const backdrop=document.getElementById('modalBackdrop'),content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><div class="success-mark">✓</div><h3 style="text-align:center">${kind} preview created</h3><p style="text-align:center">${fmt(amount)} has been added to your demo activity. This did not move real money.</p><button class="primary-btn" onclick="closeModal()">Done</button>`;backdrop.classList.add('show');}
@@ -377,6 +385,7 @@
   function saveProfile(){profile.name=document.getElementById('editName').value.trim();profile.email=document.getElementById('editEmail').value.trim();syncProfile();closeModal();toast('Profile updated in this demo.');}
   function sendSupport(){const msg=document.getElementById('supportMessage').value.trim();const topic=document.getElementById('supportTopic').value;if(!msg)return;document.getElementById('supportMessage').value='';toast('Message saved in this demo: '+topic+'.');}
   function faq(btn,answer){const existing=btn.nextElementSibling;if(existing&&existing.classList.contains('faq-answer')){existing.remove();btn.querySelector('.chevron').textContent='+';return;}document.querySelectorAll('.faq-answer').forEach(e=>e.remove());document.querySelectorAll('.menu-row .chevron').forEach(e=>e.textContent='+');const div=document.createElement('div');div.className='faq-answer';div.style.cssText='padding:0 15px 15px;color:#a9abc5;font-size:10px;line-height:1.5;background:rgba(255,255,255,.02)';div.textContent=answer;btn.after(div);btn.querySelector('.chevron').textContent='−';}
+  updateBalance();
   renderRecent();
   setTimeout(()=>{if(document.getElementById('splash')){document.getElementById('splash').style.display='none';showScreen('signin');}},1500);
 </script>

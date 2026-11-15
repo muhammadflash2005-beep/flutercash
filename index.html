@@ -261,13 +261,27 @@
 
   <!-- Profile -->
   <section id="profile" class="screen">
-    <header class="topbar"><div><div class="eyebrow">ACCOUNT</div><h1 class="page-title">My profile</h1></div><button class="icon-btn" onclick="toast('Settings are up to date.')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg></button></header>
+    <header class="topbar"><div><div class="eyebrow">ACCOUNT</div><h1 class="page-title">My profile</h1></div><button class="icon-btn" onclick="showScreen('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg></button></header>
     <div class="profile-hero"><div class="profile-avatar" id="profileAvatar">JW</div><div><h2 id="profileName">Jin Woo</h2><p id="profileEmail">jinwoo@example.com</p><span class="verified">✦ Account overview</span></div></div>
     <div class="section-head"><h2>Personal details</h2><button class="text-btn" onclick="editProfile()">Edit profile</button></div>
     <div class="menu-group"><button class="menu-row" onclick="editProfile()"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span>Personal information</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Your identity verification status will appear here.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Identity verification</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Security settings can be connected to your authentication provider.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Login & security</span><span class="chevron">›</span></button></div>
     <div class="section-head"><h2>More</h2></div>
     <div class="menu-group"><button class="menu-row" onclick="showScreen('support')"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.4 1.8c-1.1 1-1.9 1.2-1.9 2.7M12 17h.01"/></svg></span><span>Help & support</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Terms and privacy links can be added before launch.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l4 4v14H7zM17 3v5h4M10 13h8M10 17h8"/></svg></span><span>Legal & privacy</span><span class="chevron">›</span></button><button class="menu-row" onclick="signOut()"><span class="menu-icon" style="color:#ff8ba8;background:rgba(255,114,150,.1)"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M21 4v16"/></svg></span><span style="color:#ff9ab3">Sign out</span><span class="chevron">›</span></button></div>
     <div class="menu-group"><button class="menu-row" onclick="window.fluterAuth?.forgotPassword()"><span class="menu-icon">🔐</span><span>Change password</span><span class="chevron">›</span></button></div><p class="footer-note">fluter cash · Secure account</p>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings" class="screen">
+    <header class="topbar"><div><div class="eyebrow">PAYOUT DETAILS</div><h1 class="page-title">Settings</h1></div><button class="icon-btn" onclick="showScreen('profile')"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button></header>
+    <div class="support-card"><div style="font-size:23px;margin-bottom:11px">🏦</div><h3>Where should payouts go?</h3><p>Choose your bank and enter the account number belonging to you. Check the details carefully before saving.</p></div>
+    <div class="section-head" style="margin-top:22px"><h2>Payout account</h2></div>
+    <form id="payoutForm" onsubmit="event.preventDefault();savePayoutAccount();">
+      <div class="field"><label for="payoutBank">Select bank</label><select id="payoutBank" required style="width:100%;border:1px solid rgba(255,255,255,.1);background:#171a37;color:#eee;border-radius:14px;padding:14px;font-size:12px;outline:none"><option value="">Choose your bank</option><option>Access Bank</option><option>Citibank Nigeria</option><option>Ecobank Nigeria</option><option>Fidelity Bank</option><option>First Bank of Nigeria</option><option>First City Monument Bank (FCMB)</option><option>Globus Bank</option><option>Guaranty Trust Bank (GTBank)</option><option>Keystone Bank</option><option>Lotus Bank</option><option>Moniepoint Microfinance Bank</option><option>Opay</option><option>Palmpay</option><option>Polaris Bank</option><option>PremiumTrust Bank</option><option>Stanbic IBTC Bank</option><option>Standard Chartered Bank</option><option>Sterling Bank</option><option>TAJBank</option><option> sebab</option><option>Union Bank of Nigeria</option><option>United Bank for Africa (UBA)</option><option>Unity Bank</option><option>Wema Bank</option><option>Zenith Bank</option></select></div>
+      <div class="field"><label for="payoutAccountNumber">Account number</label><input id="payoutAccountNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="10" pattern="[0-9]{10}" placeholder="Enter your 10-digit account number" required></div>
+      <button class="primary-btn" type="submit">Save payout account <span style="margin-left:5px">✓</span></button>
+    </form>
+    <div id="savedPayout" class="menu-group" style="margin-top:18px;display:none"><div class="menu-row" style="display:flex;flex-direction:column;align-items:flex-start;gap:6px"><strong>Saved payout account</strong><span id="savedPayoutBank"></span><small id="savedPayoutNumber" style="color:var(--muted)"></small></div></div>
+    <p class="footer-note">Only save an account you own or are authorised to use. Payout processing is not enabled yet.</p>
   </section>
 
   <!-- Support -->
@@ -316,6 +330,7 @@
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
     window.scrollTo({top:0,behavior:'smooth'});
     if(id==='transactions') renderTransactions();
+    if(id==='settings') renderPayoutAccount();
   }
   function toast(message) { const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700); }
   function togglePassword(id,btn) { const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE'; }
@@ -323,6 +338,28 @@
   async function signUp() { return window.fluterAuth?.signUp(); }
   function syncProfile(){document.getElementById('dashName').textContent=profile.name.split(' ')[0];document.getElementById('dashAvatar').textContent=initials(profile.name);document.getElementById('profileAvatar').textContent=initials(profile.name);document.getElementById('profileName').textContent=profile.name;document.getElementById('profileEmail').textContent=profile.email;}
   async function signOut(){return window.fluterAuth?.signOut();}
+  function savePayoutAccount(){
+    const bank=document.getElementById('payoutBank').value;
+    const number=document.getElementById('payoutAccountNumber').value.trim();
+    if(!bank || !/^[0-9]{10}$/.test(number)){toast('Choose a bank and enter a valid 10-digit account number.');return;}
+    try {
+      sessionStorage.setItem('fluterPayoutAccount',JSON.stringify({bank,number}));
+      renderPayoutAccount();
+      toast('Payout account saved on this device.');
+    } catch(e){toast('Could not save these details in this browser.');}
+  }
+  function renderPayoutAccount(){
+    try {
+      const saved=JSON.parse(sessionStorage.getItem('fluterPayoutAccount')||'null');
+      const panel=document.getElementById('savedPayout');
+      if(!saved){panel.style.display='none';return;}
+      panel.style.display='block';
+      document.getElementById('savedPayoutBank').textContent=saved.bank;
+      document.getElementById('savedPayoutNumber').textContent='Account ending in '+saved.number.slice(-4);
+      document.getElementById('payoutBank').value=saved.bank;
+      document.getElementById('payoutAccountNumber').value=saved.number;
+    } catch(e){}
+  }
   function toggleBalance(){balanceVisible=!balanceVisible;document.getElementById('balanceValue').textContent=balanceVisible?'₦184,500.00':'••••••••';document.getElementById('eyeText').textContent=balanceVisible?'Hide':'Show';}
   function txIcon(type){return type==='out'?'↗':type==='bonus'?'✦':'↓';}
   function transactionHTML(t){const plus=t.type!=='out';return `<div class="transaction"><div class="tx-icon ${t.type==='out'?'out':t.type==='bonus'?'bonus':''}">${txIcon(t.type)}</div><div class="tx-info"><strong>${t.title}</strong><small>${t.sub}</small></div><div class="tx-amount ${plus?'plus':''}">${plus?'+':'−'}${fmt(t.amount)}<small>${t.type==='bonus'?'Reward':t.type==='in'?'Received':'Sent'}</small></div></div>`;}

@@ -305,6 +305,7 @@
   ];
   let balanceVisible = true, currentFilter = 'all', bonusClaimed = false, toastTimer;
   let profile = {name:'Jin Woo',email:'jinwoo@example.com'};
+  window.setFluterProfile = (user) => { profile = {name:user.name || (user.email || '').split('@')[0] || 'Member', email:user.email || ''}; syncProfile(); };
   const fmt = n => '₦' + Number(n).toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
   const initials = name => name.trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase() || 'FC';
   function showScreen(id) {

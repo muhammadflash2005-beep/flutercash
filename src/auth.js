@@ -5,7 +5,7 @@ const auth = createAuthClient(AUTH_URL);
 const $ = (id) => document.getElementById(id);
 const say = (message) => window.toast ? window.toast(message) : alert(message);
 let activeEmail = '';
-const nextScreen = () => localStorage.getItem('fluterTelegramStepDone') !== '1' ? 'telegram' : (localStorage.getItem('fluterOnboardingDone') !== '1' ? 'onboarding' : 'dashboard');
+function routeAfterAuth() { if (localStorage.getItem('fluterTelegramStepDone') !== '1') { window.showScreen('telegram'); return; } if (localStorage.getItem('fluterOnboardingDone') !== '1') { window.location.href = 'onboarding.html'; return; } window.showScreen('dashboard'); }
 
 function friendly(error) {
   const message = error?.message || String(error || 'Something went wrong.');
@@ -41,7 +41,7 @@ window.fluterAuth = {
       const result = await auth.signIn.email({ email, password });
       if (result.error) throw result.error;
       applyUser(result.data?.user);
-      window.showScreen(nextScreen());
+      routeAfterAuth();
       say('Welcome back!');
     } catch (error) { say(friendly(error)); }
     finally { done(); }
@@ -61,7 +61,7 @@ window.fluterAuth = {
       if (result.error) throw result.error;
       applyUser(result.data?.user);
       if (result.data?.user) {
-        window.showScreen(nextScreen());
+        routeAfterAuth();
         say('Account created. Check your inbox if email verification is requested.');
       } else {
         say('Account created. Check your email to complete verification, then sign in.');
@@ -102,7 +102,7 @@ async function restore() {
     const user = result?.data?.user || result?.data?.session?.user;
     if (user) {
       applyUser(user);
-      window.showScreen(nextScreen());
+      routeAfterAuth();
     } else {
       window.showScreen('signin');
     }

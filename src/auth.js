@@ -40,7 +40,7 @@ window.fluterAuth = {
       const result = await auth.signIn.email({ email, password });
       if (result.error) throw result.error;
       applyUser(result.data?.user);
-      window.showScreen('dashboard');
+      window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
       say('Welcome back!');
     } catch (error) { say(friendly(error)); }
     finally { done(); }
@@ -57,7 +57,7 @@ window.fluterAuth = {
       if (result.error) throw result.error;
       applyUser(result.data?.user);
       if (result.data?.user) {
-        window.showScreen('dashboard');
+        window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
         say('Account created. Check your inbox if email verification is requested.');
       } else {
         say('Account created. Check your email to complete verification, then sign in.');
@@ -98,7 +98,7 @@ async function restore() {
     const user = result?.data?.user || result?.data?.session?.user;
     if (user) {
       applyUser(user);
-      window.showScreen('dashboard');
+      window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
     } else {
       window.showScreen('signin');
     }

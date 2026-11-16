@@ -138,17 +138,17 @@
 
 
     .onboarding-screen.active { display:flex; }
-    .onboarding-screen { min-height:100vh;padding:25px 20px 40px;background:radial-gradient(ellipse at 50% 48%,rgba(36,205,86,.07),transparent 55%),#07140d;position:relative;display:flex;align-items:center;justify-content:center; }
+    .onboarding-screen { min-height:100vh;padding:25px 20px 40px;background:radial-gradient(ellipse at 50% 48%,rgba(139,92,246,.16),transparent 55%),radial-gradient(circle at 90% 15%,rgba(240,76,165,.08),transparent 30%),var(--bg);position:relative;display:flex;align-items:center;justify-content:center; }
     .onboarding-skip { position:absolute;top:26px;right:24px;border:0;background:none;color:#718277;font-size:12px;padding:10px; }
-    .onboarding-card { width:100%;max-width:440px;min-height:520px;padding:40px 24px 25px;border:1px solid rgba(120,180,135,.13);border-radius:28px;background:linear-gradient(145deg,rgba(20,42,27,.96),rgba(13,29,20,.98));box-shadow:0 22px 70px rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center; }
-    .onboarding-mark { width:110px;height:110px;border-radius:29px;background:linear-gradient(135deg,#20d85b,#d2f51d);display:grid;place-items:center;color:#06180c;font-size:61px;font-weight:700;margin:0 auto 34px;box-shadow:0 14px 34px rgba(76,231,66,.13); }
+    .onboarding-card { width:100%;max-width:440px;min-height:520px;padding:40px 24px 25px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(27,30,61,.96),rgba(21,24,50,.98));box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center; }
+    .onboarding-mark.brand-mark { width:88px;height:88px;min-width:88px;border-radius:29px;background:var(--gradient);margin:0 auto 34px;box-shadow:0 20px 60px rgba(179,76,228,.34); }
     .onboarding-card h1 { font:800 25px Manrope,sans-serif;letter-spacing:-.8px;margin:0 0 20px;color:#f5fff6; }
-    .onboarding-pill { display:inline-flex;align-items:center;justify-content:center;border-radius:30px;padding:12px 22px;background:linear-gradient(100deg,#20cf58,#d2ef1c);color:#09200d;font-size:14px;font-weight:800;margin-bottom:27px; }
+    .onboarding-pill { display:inline-flex;align-items:center;justify-content:center;border-radius:30px;padding:12px 22px;background:var(--gradient);color:white;font-size:14px;font-weight:800;margin-bottom:27px;box-shadow:0 8px 24px rgba(174,76,236,.2); }
     .onboarding-card p { max-width:330px;min-height:75px;color:#829488;font-size:14px;line-height:1.7;margin:0 auto 30px; }
     .onboarding-dots { display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 38px; }
-    .onboarding-dots i { display:block;width:12px;height:12px;border-radius:20px;background:#283b2e; }
-    .onboarding-dots i.active { width:42px;background:#a5ed21; }
-    .onboarding-next { width:100%;border:0;border-radius:18px;padding:22px 18px;background:linear-gradient(100deg,#20cf58,#d2ef1c);color:#08200d;font-size:16px;font-weight:800; }
+    .onboarding-dots i { display:block;width:12px;height:12px;border-radius:20px;background:#343253; }
+    .onboarding-dots i.active { width:42px;background:var(--purple); }
+    .onboarding-next { width:100%;border:0;border-radius:18px;padding:22px 18px;background:var(--gradient);color:white;font-size:16px;font-weight:800;box-shadow:0 12px 28px rgba(174,76,236,.2); }
     .onboarding-next span { margin-left:9px;font-size:20px; }
     .profile-summary { text-align:center;padding:12px 0 22px; }
     .profile-summary .profile-avatar { width:82px;height:82px;margin:0 auto 17px;border-radius:50%;background:#18351b;color:#9bea25;border:1px solid rgba(156,232,41,.18);font-size:25px; }
@@ -249,7 +249,7 @@
   <section id="onboarding" class="screen onboarding-screen">
     <button class="onboarding-skip" onclick="finishOnboarding()">× Skip</button>
     <div class="onboarding-card">
-      <div class="onboarding-mark">✧</div>
+      <div class="onboarding-mark brand-mark" aria-label="Fluter Cash logo"></div>
       <h1 id="onboardingTitle">Welcome to Fluter Cash! 🎉</h1>
       <div class="onboarding-pill" id="onboardingPill">₦170,000 Welcome Bonus</div>
       <p id="onboardingDescription">Your account is set up and ready to go. Your welcome reward is shown in your preview wallet.</p>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="fluter-build" content="2026-11-16-telegram-home-button" />
+  <meta name="fluter-build" content="2026-11-16-demo-bonus-withdrawal" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -287,7 +287,8 @@
       
       <button class="action" onclick="showScreen('support')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13v4h4v-6H4M20 13v4h-4v-6h4M16 20h-4"/></svg></span><span>Support</span></button>
     </div>
-    <div class="bonus-card"><div class="bonus-icon">🎯</div><div class="bonus-copy"><strong>Earn virtual credits</strong><p>Complete simple tasks and collect demo rewards in your Fluter Cash wallet.</p></div><button onclick="showScreen('tasks')">View tasks</button></div>
+    <div class="bonus-card"><div class="bonus-icon">🎁</div><div class="bonus-copy"><strong>₦150,000 Welcome Bonus</strong><p>Demo bonus credited to your virtual wallet. Try the instant-withdrawal flow with a simulated ₦7,500 withdrawal code.</p></div><button onclick="openDemoWithdrawal()">Try withdrawal</button></div>
+    <div class="bonus-card"><div class="bonus-icon">🎯</div><div class="bonus-copy"><strong>Earn more virtual credits</strong><p>Complete simple tasks and collect additional demo rewards.</p></div><button onclick="showScreen('tasks')">View tasks</button></div>
     <div class="section-head"><h2>Recent activity</h2><button class="text-btn" onclick="showScreen('transactions')">See all</button></div>
     <div class="transaction-list" id="recentTransactions"></div>
     <p class="footer-note">fluter cash · Demo preview · No real money moves here</p>
@@ -363,7 +364,14 @@
 <script>
   const txData = [];
   const taskDefinitions = [{id:'daily-checkin',title:'Daily check-in',description:'Visit your dashboard and check in for today.',reward:100},{id:'profile-review',title:'Review your profile',description:'Open your profile and review your account details.',reward:150},{id:'money-tip',title:'Learn a money tip',description:'Read a short savings tip in the app support section.',reward:50}];
+  const welcomeBonusKey = 'fluterDemoWelcomeBonusGranted';
+  if (localStorage.getItem(welcomeBonusKey) !== '1') {
+    const startingBalance = Math.max(0, Number(localStorage.getItem('fluterVirtualBalance') || 0));
+    localStorage.setItem('fluterVirtualBalance', String(startingBalance + 150000));
+    localStorage.setItem(welcomeBonusKey, '1');
+  }
   let walletBalance = Math.max(0, Number(localStorage.getItem('fluterVirtualBalance') || 0));
+  let demoWithdrawalCodeUnlocked = localStorage.getItem('fluterDemoWithdrawalCode') === '1';
   let completedTasks = JSON.parse(localStorage.getItem('fluterCompletedTasks') || '[]');
   let balanceVisible = true, currentFilter = 'all', toastTimer;
   let profile = {name:'Jin Woo',email:'jinwoo@example.com'};
@@ -419,6 +427,41 @@
   function setFilter(filter,btn){currentFilter=filter;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderTransactions();}
   function renderTasks(){const done=new Set(completedTasks);document.getElementById('taskList').innerHTML=taskDefinitions.map(t=>{const isDone=done.has(t.id);return '<div class="transaction"><div class="tx-icon bonus">✦</div><div class="tx-info"><strong>'+t.title+'</strong><small>'+t.description+'</small><small style="color:#c89aff;font-weight:800;margin-top:6px">+'+fmt(t.reward)+' virtual credits</small></div><button class="secondary-btn" style="width:auto;padding:9px 11px" '+(isDone?'disabled':'')+' onclick="completeTask(\''+t.id+'\')">'+(isDone?'Completed':'Complete')+'</button></div>';}).join('');updateBalance();}
   function completeTask(id){const task=taskDefinitions.find(t=>t.id===id);if(!task||completedTasks.includes(id))return;completedTasks.push(id);walletBalance+=task.reward;localStorage.setItem('fluterVirtualBalance',String(walletBalance));localStorage.setItem('fluterCompletedTasks',JSON.stringify(completedTasks));txData.unshift({title:task.title,sub:'Just now · Virtual task reward',amount:task.reward,type:'bonus'});updateBalance();renderTasks();renderRecent();if(document.getElementById('transactions').classList.contains('active'))renderTransactions();toast('Task complete! '+fmt(task.reward)+' virtual credits added.');}
+  function openDemoWithdrawal(){
+    const content=document.getElementById('modalContent');
+    const codeReady=demoWithdrawalCodeUnlocked;
+    content.innerHTML='<div class="modal-handle"></div><div class="eyebrow">DEMO WITHDRAWAL</div><h3>Withdraw your welcome bonus</h3><p>Your ₦150,000 welcome bonus is simulated virtual credit. This demo does not send money or accept real payments.</p><div class="transaction" style="margin:14px 0"><div class="tx-info"><strong>Demo withdrawal code</strong><small>One-time simulated unlock</small></div><div class="tx-amount">₦7,500</div></div>'+ (codeReady
+      ? '<div class="success-mark">✓</div><p style="text-align:center">Demo code unlocked: <strong style="color:#d6b4ff">FC-DEMO-7500</strong></p><button class="primary-btn" onclick="completeDemoWithdrawal()">Complete demo withdrawal</button>'
+      : '<p>Simulate purchasing the withdrawal code for <strong style="color:#fff">₦7,500</strong>. The fee will be deducted from your demo balance only.</p><button class="primary-btn" onclick="unlockDemoWithdrawalCode()">Simulate code purchase · ₦7,500</button>')+'<button class="secondary-btn" style="margin-top:9px" onclick="closeModal()">Cancel</button>';
+    document.getElementById('modalBackdrop').classList.add('show');
+  }
+  function unlockDemoWithdrawalCode(){
+    if(demoWithdrawalCodeUnlocked){openDemoWithdrawal();return;}
+    if(walletBalance<7500){toast('Not enough demo credits for the simulated code fee.');return;}
+    walletBalance-=7500;
+    demoWithdrawalCodeUnlocked=true;
+    localStorage.setItem('fluterVirtualBalance',String(walletBalance));
+    localStorage.setItem('fluterDemoWithdrawalCode','1');
+    updateBalance();
+    txData.unshift({title:'Demo withdrawal code',sub:'Simulated code purchase · No payment taken',amount:7500,type:'out'});
+    renderRecent();
+    openDemoWithdrawal();
+    toast('Demo withdrawal code unlocked.');
+  }
+  function completeDemoWithdrawal(){
+    const amount=walletBalance;
+    if(!demoWithdrawalCodeUnlocked){toast('Unlock the demo code first.');return;}
+    walletBalance=0;
+    localStorage.setItem('fluterVirtualBalance','0');
+    demoWithdrawalCodeUnlocked=false;
+    localStorage.removeItem('fluterDemoWithdrawalCode');
+    localStorage.setItem('fluterDemoWelcomeBonusGranted','1');
+    txData.unshift({title:'Demo withdrawal completed',sub:'Simulated only · No money transferred',amount,type:'out'});
+    updateBalance();
+    renderRecent();
+    closeModal();
+    toast('Demo withdrawal complete. No real money was transferred.');
+  }
   function closeModal(){document.getElementById('modalBackdrop').classList.remove('show');}
   function backdropClose(e){if(e.target.id==='modalBackdrop')closeModal();}
   function editProfile(){const content=document.getElementById('modalContent');content.innerHTML=`<div class="modal-handle"></div><h3>Edit profile</h3><p>Update the display details used in this demo.</p><form onsubmit="event.preventDefault();saveProfile()"><div class="field"><label for="editName">Full name</label><input id="editName" value="${escapeAttr(profile.name)}" required></div><div class="field"><label for="editEmail">Email address</label><input id="editEmail" type="email" value="${escapeAttr(profile.email)}" required></div><button class="primary-btn" type="submit">Save changes</button></form><button class="secondary-btn" style="margin-top:9px" onclick="closeModal()">Cancel</button>`;document.getElementById('modalBackdrop').classList.add('show');}

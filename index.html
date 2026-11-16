@@ -136,6 +136,32 @@
     .contact-item strong { display:block;font-size:11px; }
     .contact-item small { display:block;color:var(--muted);font-size:10px;margin-top:3px; }
 
+
+    .onboarding-screen { min-height:100vh;padding:25px 20px 40px;background:radial-gradient(ellipse at 50% 48%,rgba(36,205,86,.07),transparent 55%),#07140d;position:relative;display:flex;align-items:center;justify-content:center; }
+    .onboarding-skip { position:absolute;top:26px;right:24px;border:0;background:none;color:#718277;font-size:12px;padding:10px; }
+    .onboarding-card { width:100%;max-width:440px;min-height:520px;padding:40px 24px 25px;border:1px solid rgba(120,180,135,.13);border-radius:28px;background:linear-gradient(145deg,rgba(20,42,27,.96),rgba(13,29,20,.98));box-shadow:0 22px 70px rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center; }
+    .onboarding-mark { width:110px;height:110px;border-radius:29px;background:linear-gradient(135deg,#20d85b,#d2f51d);display:grid;place-items:center;color:#06180c;font-size:61px;font-weight:700;margin:0 auto 34px;box-shadow:0 14px 34px rgba(76,231,66,.13); }
+    .onboarding-card h1 { font:800 25px Manrope,sans-serif;letter-spacing:-.8px;margin:0 0 20px;color:#f5fff6; }
+    .onboarding-pill { display:inline-flex;align-items:center;justify-content:center;border-radius:30px;padding:12px 22px;background:linear-gradient(100deg,#20cf58,#d2ef1c);color:#09200d;font-size:14px;font-weight:800;margin-bottom:27px; }
+    .onboarding-card p { max-width:330px;min-height:75px;color:#829488;font-size:14px;line-height:1.7;margin:0 auto 30px; }
+    .onboarding-dots { display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 38px; }
+    .onboarding-dots i { display:block;width:12px;height:12px;border-radius:20px;background:#283b2e; }
+    .onboarding-dots i.active { width:42px;background:#a5ed21; }
+    .onboarding-next { width:100%;border:0;border-radius:18px;padding:22px 18px;background:linear-gradient(100deg,#20cf58,#d2ef1c);color:#08200d;font-size:16px;font-weight:800; }
+    .onboarding-next span { margin-left:9px;font-size:20px; }
+    .profile-summary { text-align:center;padding:12px 0 22px; }
+    .profile-summary .profile-avatar { width:82px;height:82px;margin:0 auto 17px;border-radius:50%;background:#18351b;color:#9bea25;border:1px solid rgba(156,232,41,.18);font-size:25px; }
+    .profile-summary h2 { margin:0 0 7px;font:800 18px Manrope,sans-serif;text-transform:uppercase; }
+    .profile-summary p { margin:0;color:var(--muted);font-size:11px; }
+    .profile-stats { display:grid;gap:10px;margin-top:14px; }
+    .profile-stat { display:flex;align-items:center;gap:13px;padding:15px;border:1px solid rgba(131,173,137,.12);border-radius:18px;background:rgba(24,48,30,.48); }
+    .profile-stat-icon { width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:rgba(134,213,41,.12);color:#9be52d;font-size:19px;flex:none; }
+    .profile-stat small { display:block;color:#809187;font-size:10px;font-weight:800;letter-spacing:.07em;margin-bottom:5px; }
+    .profile-stat strong { display:block;color:#f1f8f1;font-size:13px;overflow-wrap:anywhere; }
+    .profile-referral { margin-top:16px;padding:18px;border:1px solid rgba(131,173,137,.12);border-radius:18px;background:rgba(24,48,30,.48); }
+    .profile-referral small { display:block;color:#809187;font-size:10px;font-weight:800;margin-bottom:9px; }
+    .profile-referral strong { color:#a5ed21;font:800 22px Manrope,sans-serif;letter-spacing:2px; }
+
     .telegram-panel { max-width:390px;margin:12vh auto 0;text-align:center;padding:28px 21px;border:1px solid rgba(183,112,255,.2);border-radius:26px;background:radial-gradient(circle at 50% 0,rgba(144,83,255,.2),transparent 58%),rgba(255,255,255,.035);box-shadow:var(--shadow); }
     .telegram-icon { width:76px;height:76px;margin:0 auto 22px;border-radius:25px;display:grid;place-items:center;background:linear-gradient(135deg,#2aabee,#168bd1);box-shadow:0 12px 32px rgba(42,171,238,.25);font-size:37px; }
     .telegram-panel h1 { margin:0 0 10px;font:800 25px Manrope,sans-serif;letter-spacing:-.8px; }
@@ -215,6 +241,20 @@
     <h1>fluter <span>cash</span></h1>
     <p>Small steps. Bigger possibilities.</p>
     <div class="loader"><i></i><i></i><i></i></div>
+  </section>
+
+
+  <!-- Welcome walkthrough -->
+  <section id="onboarding" class="screen onboarding-screen">
+    <button class="onboarding-skip" onclick="finishOnboarding()">× Skip</button>
+    <div class="onboarding-card">
+      <div class="onboarding-mark">✧</div>
+      <h1 id="onboardingTitle">Welcome to Fluter Cash! 🎉</h1>
+      <div class="onboarding-pill" id="onboardingPill">₦170,000 Welcome Bonus</div>
+      <p id="onboardingDescription">Your account is set up and ready to go. Your welcome reward is shown in your preview wallet.</p>
+      <div class="onboarding-dots" id="onboardingDots"><i class="active"></i><i></i><i></i><i></i><i></i></div>
+      <button class="onboarding-next" id="onboardingNext" onclick="nextOnboarding()">Next <span>→</span></button>
+    </div>
   </section>
 
   <!-- Sign in -->
@@ -314,13 +354,21 @@
 
   <!-- Profile -->
   <section id="profile" class="screen">
-    <header class="topbar"><div><div class="eyebrow">ACCOUNT</div><h1 class="page-title">My profile</h1></div><button class="icon-btn" onclick="showScreen('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg></button></header>
-    <div class="profile-hero"><div class="profile-avatar" id="profileAvatar">JW</div><div><h2 id="profileName">Jin Woo</h2><p id="profileEmail">jinwoo@example.com</p><span class="verified">✦ Account overview</span></div></div>
-    <div class="section-head"><h2>Personal details</h2><button class="text-btn" onclick="editProfile()">Edit profile</button></div>
-    <div class="menu-group"><button class="menu-row" onclick="editProfile()"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span>Personal information</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Your identity verification status will appear here.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Identity verification</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Security settings can be connected to your authentication provider.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Login & security</span><span class="chevron">›</span></button></div>
-    <div class="section-head"><h2>More</h2></div>
-    <div class="menu-group"><button class="menu-row" onclick="showScreen('support')"><span class="menu-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.4 1.8c-1.1 1-1.9 1.2-1.9 2.7M12 17h.01"/></svg></span><span>Help & support</span><span class="chevron">›</span></button><button class="menu-row" onclick="toast('Terms and privacy links can be added before launch.')"><span class="menu-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l4 4v14H7zM17 3v5h4M10 13h8M10 17h8"/></svg></span><span>Legal & privacy</span><span class="chevron">›</span></button><button class="menu-row" onclick="signOut()"><span class="menu-icon" style="color:#ff8ba8;background:rgba(255,114,150,.1)"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M21 4v16"/></svg></span><span style="color:#ff9ab3">Sign out</span><span class="chevron">›</span></button></div>
-    <div class="menu-group"><button class="menu-row" onclick="window.fluterAuth?.forgotPassword()"><span class="menu-icon">🔐</span><span>Change password</span><span class="chevron">›</span></button></div><p class="footer-note">fluter cash · Secure account</p>
+    <header class="topbar"><div><div class="eyebrow">ACCOUNT</div><h1 class="page-title">Profile</h1></div><button class="icon-btn" onclick="showScreen('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4L17 17.4a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 0 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 0 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 0 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 0 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg></button></header>
+    <div class="profile-summary"><div class="profile-avatar" id="profileAvatar">FC</div><h2 id="profileName">Member</h2><p><span id="profileUsername">@member</span> · Member since <span id="memberSince">November 2026</span></p></div>
+    <div class="profile-stats">
+      <div class="profile-stat"><span class="profile-stat-icon">♙</span><div><small>FULL NAME</small><strong id="profileFullName">Member</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">✉</span><div><small>EMAIL</small><strong id="profileEmail">—</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">☎</span><div><small>PHONE</small><strong id="profilePhone">Not added</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">🏅</span><div><small>LEVEL</small><strong>🥉 Bronze</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">▣</span><div><small>BALANCE · PREVIEW CREDITS</small><strong id="profileBalance">₦0.00</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">▦</span><div><small>TASKS COMPLETED</small><strong id="profileTasksCompleted">0</strong></div></div>
+      <div class="profile-stat"><span class="profile-stat-icon">◇</span><div><small>ACCOUNT STATUS</small><strong>Active · Email status depends on verification</strong></div></div>
+    </div>
+    <div class="profile-referral"><small>REFERRAL CODE</small><strong id="profileReferralCode">FLUTER0000</strong><button class="text-btn" style="float:right" onclick="copyReferralCode()">Copy</button></div>
+    <div class="section-head"><h2>Account settings</h2><button class="text-btn" onclick="editProfile()">Edit</button></div>
+    <div class="menu-group"><button class="menu-row" onclick="showScreen('settings')"><span class="menu-icon">🏦</span><span>Payout account details</span><span class="chevron">›</span></button><button class="menu-row" onclick="showScreen('support')"><span class="menu-icon">💬</span><span>Help & support</span><span class="chevron">›</span></button><button class="menu-row" onclick="signOut()"><span class="menu-icon">↪</span><span style="color:#ff9ab3">Sign out</span><span class="chevron">›</span></button></div>
+    <p class="footer-note">Preview account · Virtual funds only</p>
   </section>
 
   <!-- Settings -->
@@ -367,7 +415,7 @@
   const welcomeBonusKey = 'fluterDemoWelcomeBonusGranted';
   if (localStorage.getItem(welcomeBonusKey) !== '1') {
     const startingBalance = Math.max(0, Number(localStorage.getItem('fluterVirtualBalance') || 0));
-    localStorage.setItem('fluterVirtualBalance', String(startingBalance + 150000));
+    localStorage.setItem('fluterVirtualBalance', String(startingBalance + 170000));
     localStorage.setItem(welcomeBonusKey, '1');
   }
   let walletBalance = Math.max(0, Number(localStorage.getItem('fluterVirtualBalance') || 0));
@@ -381,7 +429,7 @@
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     const target=document.getElementById(id); if(target) target.classList.add('active');
-    const auth=['signin','signup','splash','telegram'].includes(id);
+    const auth=['signin','signup','splash','telegram','onboarding'].includes(id);
     document.getElementById('bottomNav').classList.toggle('hidden',auth);
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
     window.scrollTo({top:0,behavior:'smooth'});
@@ -389,7 +437,22 @@
     if(id==='tasks') renderTasks();
     if(id==='settings') renderPayoutAccount();
   }
-  function continueAfterTelegram(){localStorage.setItem('fluterTelegramStepDone','1');showScreen('dashboard');toast('Welcome to Fluter Cash!');}
+  function continueAfterTelegram(){localStorage.setItem('fluterTelegramStepDone','1');if(localStorage.getItem('fluterOnboardingDone')!=='1')showScreen('onboarding');else showScreen('dashboard');toast('Welcome to Fluter Cash!');}
+  const onboardingSlides = [
+    {title:'Welcome to Fluter Cash! 🎉',pill:'₦170,000 Welcome Bonus',description:'Your account is set up and ready to go. Your welcome reward is shown in your preview wallet.'},
+    {title:'Start Earning Today 💰',pill:'Daily Tasks Available',description:'Complete simple tasks daily to earn rewards. The more you do, the more preview credits you can collect.'},
+    {title:'Invite & Earn More 🤝',pill:'Referral Bonus',description:'Share your referral code with friends. Referral rewards can be enabled when the live rewards programme launches.'},
+    {title:'Withdraw Anytime 🏦',pill:'Withdrawal Options',description:'Review the withdrawal experience and add your payout details. Real bank withdrawals are not enabled yet.'},
+    {title:"You're All Set! 🚀",pill:"Let's Go",description:'Everything is ready. Tap below to explore your Fluter Cash dashboard and get started.'}
+  ];
+  let onboardingIndex=0;
+  function renderOnboarding(){const x=onboardingSlides[onboardingIndex];document.getElementById('onboardingTitle').textContent=x.title;document.getElementById('onboardingPill').textContent=x.pill;document.getElementById('onboardingDescription').textContent=x.description;document.getElementById('onboardingDots').innerHTML=onboardingSlides.map((_,i)=>'<i class="'+(i===onboardingIndex?'active':'')+'"></i>').join('');document.getElementById('onboardingNext').innerHTML=onboardingIndex===4?'Get Started <span>→</span>':'Next <span>→</span>';}
+  function nextOnboarding(){if(onboardingIndex<4){onboardingIndex++;renderOnboarding();}else finishOnboarding();}
+  function finishOnboarding(){localStorage.setItem('fluterOnboardingDone','1');showScreen('dashboard');}
+  function profileReferral(){let code=localStorage.getItem('fluterReferralCode');if(!code){code='FLUTER'+Math.random().toString(36).slice(2,7).toUpperCase();localStorage.setItem('fluterReferralCode',code);}return code;}
+  function copyReferralCode(){const code=profileReferral();if(navigator.clipboard?.writeText)navigator.clipboard.writeText(code).then(()=>toast('Referral code copied.')).catch(()=>toast('Your referral code is '+code));else toast('Your referral code is '+code);}
+  function syncProfile(){document.getElementById('dashName').textContent=profile.name.split(' ')[0];document.getElementById('dashAvatar').textContent=initials(profile.name);document.getElementById('profileAvatar').textContent=initials(profile.name);document.getElementById('profileName').textContent=profile.name;document.getElementById('profileFullName').textContent=profile.name;document.getElementById('profileEmail').textContent=profile.email;document.getElementById('profileUsername').textContent='@'+profile.name.toLowerCase().replace(/[^a-z0-9]+/g,'.').replace(/^\\.|\\.$/g,'');document.getElementById('profilePhone').textContent=localStorage.getItem('fluterPhone')||'Not added';document.getElementById('memberSince').textContent=localStorage.getItem('fluterMemberSince')||new Date().toLocaleDateString('en',{month:'long',year:'numeric'});document.getElementById('profileReferralCode').textContent=profileReferral();updateProfileStats();}
+  function updateProfileStats(){const b=document.getElementById('profileBalance'),t=document.getElementById('profileTasksCompleted');if(b)b.textContent=fmt(walletBalance);if(t)t.textContent=completedTasks.length;}
   function toast(message) { const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700); }
   function togglePassword(id,btn) { const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE'; }
   async function signIn() { return window.fluterAuth?.signIn(); }
@@ -418,7 +481,7 @@
       document.getElementById('payoutAccountNumber').value=saved.number;
     } catch(e){}
   }
-  function updateBalance(){const value=fmt(walletBalance);document.getElementById('balanceValue').textContent=balanceVisible?value:'••••••••';document.getElementById('tasksBalance').textContent=value;document.getElementById('earnedValue').textContent=value;}
+  function updateBalance(){const value=fmt(walletBalance);document.getElementById('balanceValue').textContent=balanceVisible?value:'••••••••';document.getElementById('tasksBalance').textContent=value;document.getElementById('earnedValue').textContent=value;updateProfileStats();}
   function toggleBalance(){balanceVisible=!balanceVisible;updateBalance();document.getElementById('eyeText').textContent=balanceVisible?'Hide':'Show';}
   function txIcon(type){return type==='out'?'↗':type==='bonus'?'✦':'↓';}
   function transactionHTML(t){const plus=t.type!=='out';return `<div class="transaction"><div class="tx-icon ${t.type==='out'?'out':t.type==='bonus'?'bonus':''}">${txIcon(t.type)}</div><div class="tx-info"><strong>${t.title}</strong><small>${t.sub}</small></div><div class="tx-amount ${plus?'plus':''}">${plus?'+':'−'}${fmt(t.amount)}<small>${t.type==='bonus'?'Reward':t.type==='in'?'Received':'Sent'}</small></div></div>`;}
@@ -474,6 +537,8 @@
     document.getElementById('signupReferral').value = incomingReferral.trim().toUpperCase();
   }
   updateBalance();
+  renderOnboarding();
+  syncProfile();
   renderRecent();
   setTimeout(()=>{if(document.getElementById('splash')){document.getElementById('splash').style.display='none';showScreen('signin');}},1500);
 </script>

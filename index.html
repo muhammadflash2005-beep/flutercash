@@ -402,6 +402,10 @@
   function saveProfile(){profile.name=document.getElementById('editName').value.trim();profile.email=document.getElementById('editEmail').value.trim();syncProfile();closeModal();toast('Profile updated in this demo.');}
   function sendSupport(){const msg=document.getElementById('supportMessage').value.trim();const topic=document.getElementById('supportTopic').value;if(!msg)return;document.getElementById('supportMessage').value='';toast('Message saved in this demo: '+topic+'.');}
   function faq(btn,answer){const existing=btn.nextElementSibling;if(existing&&existing.classList.contains('faq-answer')){existing.remove();btn.querySelector('.chevron').textContent='+';return;}document.querySelectorAll('.faq-answer').forEach(e=>e.remove());document.querySelectorAll('.menu-row .chevron').forEach(e=>e.textContent='+');const div=document.createElement('div');div.className='faq-answer';div.style.cssText='padding:0 15px 15px;color:#a9abc5;font-size:10px;line-height:1.5;background:rgba(255,255,255,.02)';div.textContent=answer;btn.after(div);btn.querySelector('.chevron').textContent='−';}
+  const incomingReferral = new URLSearchParams(window.location.search).get('ref');
+  if (incomingReferral && document.getElementById('signupReferral')) {
+    document.getElementById('signupReferral').value = incomingReferral.trim().toUpperCase();
+  }
   updateBalance();
   renderRecent();
   setTimeout(()=>{if(document.getElementById('splash')){document.getElementById('splash').style.display='none';showScreen('signin');}},1500);

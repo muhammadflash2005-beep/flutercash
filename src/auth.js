@@ -5,6 +5,7 @@ const auth = createAuthClient(AUTH_URL);
 const $ = (id) => document.getElementById(id);
 const say = (message) => window.toast ? window.toast(message) : alert(message);
 let activeEmail = '';
+const nextScreen = () => localStorage.getItem('fluterTelegramStepDone') !== '1' ? 'telegram' : (localStorage.getItem('fluterOnboardingDone') !== '1' ? 'onboarding' : 'dashboard');
 
 function friendly(error) {
   const message = error?.message || String(error || 'Something went wrong.');
@@ -40,7 +41,7 @@ window.fluterAuth = {
       const result = await auth.signIn.email({ email, password });
       if (result.error) throw result.error;
       applyUser(result.data?.user);
-      window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
+      window.showScreen(nextScreen());
       say('Welcome back!');
     } catch (error) { say(friendly(error)); }
     finally { done(); }
@@ -49,6 +50,9 @@ window.fluterAuth = {
     const name = $('signupName')?.value.trim();
     const email = $('signupEmail')?.value.trim();
     const password = $('signupPassword')?.value;
+    const phone = $('signupPhone')?.value.trim() || '';
+    if (phone) localStorage.setItem('fluterPhone', phone);
+    if (!localStorage.getItem('fluterMemberSince')) localStorage.setItem('fluterMemberSince', new Date().toLocaleDateString('en',{month:'long',year:'numeric'}));
     if (!name || !email || !password) return say('Complete all required fields.');
     if (password.length < 8) return say('Use a password with at least 8 characters.');
     const done = busy(document.querySelector('#signup form button[type="submit"]'), 'Creating account…');

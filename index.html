@@ -152,6 +152,17 @@
     .auth-heading { text-align:center;margin-bottom:26px; }
     .auth-heading h1 { font:800 27px Manrope,sans-serif;letter-spacing:-1px;margin:0 0 8px; }
     .auth-heading p { color:var(--muted);font-size:12px;margin:0; }
+    .signup-intro { margin:26px 0 23px; }
+    .signup-intro h1 { font:800 28px Manrope,sans-serif;letter-spacing:-1px;margin:9px 0 7px; }
+    .signup-intro p { color:var(--muted);font-size:12px;line-height:1.5;margin:0; }
+    .signup-perks { display:flex;flex-wrap:wrap;gap:7px;margin-top:16px; }
+    .signup-perks span { border:1px solid rgba(190,126,255,.2);background:rgba(157,101,255,.09);color:#d7c2f7;border-radius:30px;padding:7px 10px;font-size:9px;font-weight:700; }
+    .signup-form .field { margin:13px 0; }
+    .signup-form .field label { font-size:10px;letter-spacing:.07em;color:#c4c2d9; }
+    .signup-hint { display:block;color:#8589a8;font-size:9px;margin:6px 2px 0; }
+    .signup-consent { display:flex;align-items:flex-start;gap:9px;color:#9699b6;font-size:10px;line-height:1.55;margin:17px 0 19px; }
+    .signup-consent input { accent-color:#b46bff;margin:2px 0 0;flex:none; }
+    .signup-login { margin-top:22px; }
     .auth-switch { text-align:center;color:var(--muted);font-size:11px;margin:17px 0; }
     .auth-switch button { border:0;background:none;color:#d09aff;font-size:11px;font-weight:800;padding:0 3px; }
     .divider-or { display:flex;align-items:center;gap:12px;color:#777b98;font-size:10px;margin:18px 0; }
@@ -214,16 +225,22 @@
   <!-- Sign up -->
   <section id="signup" class="screen auth-screen">
     <div class="auth-top"><div class="brand"><span class="brand-mark"></span> fluter cash</div><button class="back-link" onclick="showScreen('signin')">Sign in</button></div>
-    <div class="auth-heading" style="text-align:left;margin:28px 0 23px"><div class="eyebrow" style="margin-bottom:9px">YOUR NEXT CHAPTER</div><h1 style="font-size:29px">Make room for<br><span style="background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent">more.</span></h1><p>Open your account and start building better money habits.</p></div>
-    <form onsubmit="event.preventDefault(); signUp();">
-      <div class="field"><label for="signupName">Full name</label><input id="signupName" type="text" placeholder="Your full name" autocomplete="name" required></div>
-      <div class="field"><label for="signupEmail">Email address</label><input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required></div>
-      <div class="field"><label for="signupPhone">Phone number</label><input id="signupPhone" type="tel" placeholder="+234 800 000 0000" autocomplete="tel" required></div>
-      <div class="field"><label for="signupPassword">Create password</label><div class="input-wrap"><input id="signupPassword" type="password" placeholder="At least 8 characters" minlength="8" required><button class="toggle-pass" type="button" onclick="togglePassword('signupPassword',this)">SHOW</button></div></div>
-      <label style="display:flex;align-items:flex-start;gap:8px;color:#9699b6;font-size:10px;line-height:1.5;margin:15px 0 18px"><input type="checkbox" required style="accent-color:#b46bff;margin-top:1px"> I agree to the Terms of Service and Privacy Policy.</label>
-      <button class="primary-btn" type="submit">Create my account <span style="font-size:16px;margin-left:5px">→</span></button>
+    <div class="signup-intro">
+      <div class="eyebrow">WELCOME TO FLUTER CASH</div>
+      <h1>Join Fluter Cash</h1>
+      <p>Create your account and start building better money habits.</p>
+      <div class="signup-perks"><span>✦ Simple setup</span><span>⌁ Secure sign-in</span><span>↗ Rewards</span></div>
+    </div>
+    <form class="signup-form" onsubmit="event.preventDefault(); signUp();">
+      <div class="field"><label for="signupName">FULL NAME</label><input id="signupName" type="text" placeholder="Enter your full name" autocomplete="name" required></div>
+      <div class="field"><label for="signupEmail">EMAIL ADDRESS</label><input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+      <div class="field"><label for="signupPhone">PHONE NUMBER</label><input id="signupPhone" type="tel" placeholder="e.g. 08012345678" autocomplete="tel" required></div>
+      <div class="field"><label for="signupPassword">PASSWORD</label><div class="input-wrap"><input id="signupPassword" type="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" required><button class="toggle-pass" type="button" onclick="togglePassword('signupPassword',this)">SHOW</button></div><small class="signup-hint">Use at least 8 characters.</small></div>
+      <label class="signup-consent"><input type="checkbox" required> <span>By creating an account, you agree to our Terms of Service and Privacy Policy.</span></label>
+      <button class="primary-btn" type="submit">Create account <span style="font-size:16px;margin-left:5px">→</span></button>
     </form>
-    <div class="divider-or">OR</div><button class="secondary-btn social-btn" onclick="window.fluterAuth?.googleSignIn()"><strong style="font-size:15px">G</strong> Sign up with Google</button><p class="auth-switch">Already have an account? <button onclick="showScreen('signin')">Sign in</button></p>
+    <div class="auth-switch signup-login">Already have an account? <button onclick="showScreen('signin')">Sign in</button></div>
+    <p class="footer-note">Your account is protected by secure authentication.</p>
   </section>
 
   <!-- Dashboard -->

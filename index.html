@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="fluter-build" content="2026-11-16-referral-field" />
+  <meta name="fluter-build" content="2026-11-16-telegram-onboarding" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -135,6 +135,14 @@
     .contact-item { padding:13px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid var(--line);display:flex;align-items:center;gap:11px;margin:8px 0; }
     .contact-item strong { display:block;font-size:11px; }
     .contact-item small { display:block;color:var(--muted);font-size:10px;margin-top:3px; }
+
+    .telegram-panel { max-width:390px;margin:12vh auto 0;text-align:center;padding:28px 21px;border:1px solid rgba(183,112,255,.2);border-radius:26px;background:radial-gradient(circle at 50% 0,rgba(144,83,255,.2),transparent 58%),rgba(255,255,255,.035);box-shadow:var(--shadow); }
+    .telegram-icon { width:76px;height:76px;margin:0 auto 22px;border-radius:25px;display:grid;place-items:center;background:linear-gradient(135deg,#2aabee,#168bd1);box-shadow:0 12px 32px rgba(42,171,238,.25);font-size:37px; }
+    .telegram-panel h1 { margin:0 0 10px;font:800 25px Manrope,sans-serif;letter-spacing:-.8px; }
+    .telegram-panel p { margin:0 auto 22px;max-width:300px;color:var(--muted);font-size:13px;line-height:1.6; }
+    .telegram-join { display:flex;justify-content:center;align-items:center;gap:9px;width:100%;text-decoration:none;margin-bottom:11px; }
+    .telegram-continue { width:100%; }
+    .telegram-note { display:block;margin-top:17px;color:#8589a8;font-size:10px;line-height:1.5; }
     .field { margin:15px 0; }
     .field label { display:block;font-size:11px;color:#c4c2d9;font-weight:700;margin-bottom:8px; }
     .input-wrap { position:relative; }
@@ -248,6 +256,21 @@
     <p class="footer-note">Your account is protected by secure authentication.</p>
   </section>
 
+
+  <!-- Telegram onboarding -->
+  <section id="telegram" class="screen auth-screen">
+    <div class="auth-top"><div class="brand"><span class="brand-mark"></span> fluter cash</div></div>
+    <div class="telegram-panel">
+      <div class="telegram-icon" aria-hidden="true">➤</div>
+      <div class="eyebrow" style="margin-bottom:9px">YOU'RE ALMOST THERE</div>
+      <h1>Join our Telegram Channel</h1>
+      <p>Stay connected with Fluter Cash for important announcements, updates, and community news.</p>
+      <a class="primary-btn telegram-join" href="https://t.me/fluttercash" target="_blank" rel="noopener noreferrer">Join Telegram Channel <span style="font-size:16px">↗</span></a>
+      <button class="secondary-btn telegram-continue" type="button" onclick="continueAfterTelegram()">I've Joined – Continue</button>
+      <small class="telegram-note">The channel opens in Telegram or your browser. Return here when you're ready to continue.</small>
+    </div>
+  </section>
+
   <!-- Dashboard -->
   <section id="dashboard" class="screen">
     <header class="topbar"><div class="brand"><span class="brand-mark"></span> fluter cash</div><button class="icon-btn" aria-label="Notifications" onclick="toast('You’re all caught up!')"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i style="position:absolute;right:9px;top:8px;width:6px;height:6px;background:#ff73b2;border-radius:50%;border:1px solid #11152d"></i></button></header>
@@ -350,7 +373,7 @@
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     const target=document.getElementById(id); if(target) target.classList.add('active');
-    const auth=['signin','signup','splash'].includes(id);
+    const auth=['signin','signup','splash','telegram'].includes(id);
     document.getElementById('bottomNav').classList.toggle('hidden',auth);
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
     window.scrollTo({top:0,behavior:'smooth'});
@@ -358,6 +381,7 @@
     if(id==='tasks') renderTasks();
     if(id==='settings') renderPayoutAccount();
   }
+  function continueAfterTelegram(){localStorage.setItem('fluterTelegramStepDone','1');showScreen('dashboard');toast('Welcome to Fluter Cash!');}
   function toast(message) { const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2700); }
   function togglePassword(id,btn) { const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE'; }
   async function signIn() { return window.fluterAuth?.signIn(); }

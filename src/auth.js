@@ -61,7 +61,7 @@ window.fluterAuth = {
       if (result.error) throw result.error;
       applyUser(result.data?.user);
       if (result.data?.user) {
-        window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
+        window.showScreen(nextScreen());
         say('Account created. Check your inbox if email verification is requested.');
       } else {
         say('Account created. Check your email to complete verification, then sign in.');

@@ -102,7 +102,7 @@ async function restore() {
     const user = result?.data?.user || result?.data?.session?.user;
     if (user) {
       applyUser(user);
-      window.showScreen(localStorage.getItem('fluterTelegramStepDone') === '1' ? 'dashboard' : 'telegram');
+      window.showScreen(nextScreen());
     } else {
       window.showScreen('signin');
     }

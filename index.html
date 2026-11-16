@@ -328,7 +328,7 @@
       
       <button class="action" onclick="showScreen('support')"><span class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13v4h4v-6H4M20 13v4h-4v-6h4M16 20h-4"/></svg></span><span>Support</span></button>
     </div>
-    <div class="bonus-card"><div class="bonus-icon">🎁</div><div class="bonus-copy"><strong>₦150,000 Welcome Bonus</strong><p>Your ₦150,000 welcome bonus is ready in your wallet. Try instant withdrawal with a ₦7,500 withdrawal code.</p></div><button onclick="openDemoWithdrawal()">Try withdrawal</button></div>
+    <div class="bonus-card"><div class="bonus-icon">🎁</div><div class="bonus-copy"><strong>₦170,000 Welcome Bonus</strong><p>Your ₦170,000 welcome bonus is ready in your wallet. Try instant withdrawal with a ₦7,500 withdrawal code.</p></div><button onclick="openDemoWithdrawal()">Try withdrawal</button></div>
     <div class="bonus-card"><div class="bonus-icon">🎯</div><div class="bonus-copy"><strong>Earn more virtual credits</strong><p>Complete simple tasks and collect additional rewards.</p></div><button onclick="showScreen('tasks')">View tasks</button></div>
     <div class="section-head"><h2>Recent activity</h2><button class="text-btn" onclick="showScreen('transactions')">See all</button></div>
     <div class="transaction-list" id="recentTransactions"></div>
@@ -458,7 +458,7 @@
   function togglePassword(id,btn) { const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'SHOW':'HIDE'; }
   async function signIn() { return window.fluterAuth?.signIn(); }
   async function signUp() { return window.fluterAuth?.signUp(); }
-  function syncProfile(){document.getElementById('dashName').textContent=profile.name.split(' ')[0];document.getElementById('dashAvatar').textContent=initials(profile.name);document.getElementById('profileAvatar').textContent=initials(profile.name);document.getElementById('profileName').textContent=profile.name;document.getElementById('profileEmail').textContent=profile.email;}
+  function syncProfile(){document.getElementById('dashName').textContent=profile.name.split(' ')[0];document.getElementById('dashAvatar').textContent=initials(profile.name);document.getElementById('profileAvatar').textContent=initials(profile.name);document.getElementById('profileName').textContent=profile.name;document.getElementById('profileFullName').textContent=profile.name;document.getElementById('profileEmail').textContent=profile.email;document.getElementById('profileUsername').textContent='@'+profile.name.toLowerCase().replace(/[^a-z0-9]+/g,'.').replace(/^\\.|\\.$/g,'');document.getElementById('profilePhone').textContent=localStorage.getItem('fluterPhone')||'Not added';document.getElementById('memberSince').textContent=localStorage.getItem('fluterMemberSince')||new Date().toLocaleDateString('en',{month:'long',year:'numeric'});document.getElementById('profileReferralCode').textContent=profileReferral();updateProfileStats();}
   async function signOut(){return window.fluterAuth?.signOut();}
   function savePayoutAccount(){
     const bank=document.getElementById('payoutBank').value;

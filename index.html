@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="fluter-build" content="2026-11-16-signup-refresh-2" />
+  <meta name="fluter-build" content="2026-11-16-referral-field" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -239,6 +239,7 @@
       <div class="field"><label for="signupName">FULL NAME</label><input id="signupName" type="text" placeholder="Enter your full name" autocomplete="name" required></div>
       <div class="field"><label for="signupEmail">EMAIL ADDRESS</label><input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required></div>
       <div class="field"><label for="signupPhone">PHONE NUMBER</label><input id="signupPhone" type="tel" placeholder="e.g. 08012345678" autocomplete="tel" required></div>
+      <div class="field"><label for="signupReferral">REFERRAL CODE <span style="font-weight:500;letter-spacing:0;color:#8589a8">(OPTIONAL)</span></label><input id="signupReferral" type="text" placeholder="Enter referral code" autocomplete="off" autocapitalize="characters"><small class="signup-hint">Have a referral code? Enter it here.</small></div>
       <div class="field"><label for="signupPassword">PASSWORD</label><div class="input-wrap"><input id="signupPassword" type="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" required><button class="toggle-pass" type="button" onclick="togglePassword('signupPassword',this)">SHOW</button></div><small class="signup-hint">Use at least 8 characters.</small></div>
       <label class="signup-consent"><input type="checkbox" required> <span>By creating an account, you agree to our Terms of Service and Privacy Policy.</span></label>
       <button class="primary-btn" type="submit">Create account <span style="font-size:16px;margin-left:5px">→</span></button>
